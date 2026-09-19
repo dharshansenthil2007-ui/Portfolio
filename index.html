@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dharshan S - Electrical and Electronics Engineering portfolio with embedded resume viewer">
+<meta name="theme-color" content="#070b17">
+<title>Dharshan S | EEE • Embedded Systems Portfolio & Resume</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#070b17;
+  --panel:#10182b;
+  --panel2:#131f36;
+  --text:#f4f7ff;
+  --muted:#a9b5cf;
+  --mint:#63f5d0;
+  --violet:#9c8cff;
+  --line:#ffffff18;
+  --shadow:0 20px 60px #0005;
+}
+
+*{box-sizing:border-box;scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:radial-gradient(circle at 10% 0%,#26356b55,transparent 32%),radial-gradient(circle at 100% 30%,#246c6550,transparent 30%),var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  line-height:1.65;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.13;
+  background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:linear-gradient(to bottom,black,transparent 75%);
+}
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 7%;
+  background:#070b17d9;
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+
+.logo{font-family:"Space Grotesk";font-size:1.5rem;font-weight:800;letter-spacing:-1px}
+.logo b{color:var(--mint)}
+nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.86rem;transition:color .2s}
+nav a:hover{color:var(--mint)}
+
+.hero{
+  max-width:1250px;
+  margin:auto;
+  padding:105px 7% 80px;
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:55px;
+  align-items:center;
+  min-height:85vh;
+}
+
+.eyebrow{
+  display:inline-flex;
+  gap:9px;
+  align-items:center;
+  padding:7px 13px;
+  border:1px solid #63f5d055;
+  border-radius:50px;
+  color:var(--mint);
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.4px;
+  background:#63f5d00b;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--mint);
+  box-shadow:0 0 15px var(--mint);
+}
+
+h1,h2,h3{font-family:"Space Grotesk",sans-serif;line-height:1.15}
+h1{font-size:clamp(2.8rem,6.5vw,5.5rem);letter-spacing:-3px;margin:24px 0 20px}
+h1 span{color:var(--mint)}
+h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-1px;margin:0 0 14px}
+h3{font-size:1.2rem;margin:0 0 10px}
+
+.lead{font-size:1.08rem;max-width:650px;color:var(--muted)}
+
+.actions{margin-top:28px}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:13px 20px;
+  border-radius:13px;
+  text-decoration:none;
+  font-weight:800;
+  font-size:.9rem;
+  margin:6px 8px 0 0;
+  background:var(--mint);
+  color:#07131a;
+  box-shadow:0 8px 30px #63f5d01c;
+  transition:all .2s ease;
+  cursor:pointer;
+  border:none;
+}
+.btn.alt{
+  background:#ffffff08;
+  color:var(--text);
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+.btn:hover{transform:translateY(-2px)}
+
+.profile-card{
+  position:relative;
+  background:linear-gradient(145deg,#172442,#0e1628);
+  border:1px solid #ffffff20;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+.profile-card:after{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  background:var(--violet);
+  filter:blur(80px);
+  opacity:.22;
+  right:-70px;
+  top:-70px;
+}
+
+.avatar{
+  height:280px;
+  border-radius:22px;
+  background:radial-gradient(circle at 50% 35%,#9c8cff55,transparent 30%),linear-gradient(145deg,#20335b,#0b1222);
+  display:grid;
+  place-items:center;
+  border:1px solid #ffffff18;
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block}
+.avatar-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.avatar-fallback span{font-family:"Space Grotesk";font-size:5.5rem;font-weight:900;letter-spacing:-4px;color:transparent;-webkit-text-stroke:2px var(--mint)}
+.avatar-fallback small{font-size:.8rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:-8px}
+
+.profile-bottom{display:flex;justify-content:space-between;gap:15px;margin-top:20px}
+.profile-bottom strong{display:block}
+.muted{color:var(--muted);font-size:.83rem}
+
+section{max-width:1250px;margin:auto;padding:85px 7%}
+.section-top{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:30px}
+.section-top p{max-width:450px;margin:0;color:var(--muted)}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card{
+  background:linear-gradient(145deg,#111c32,#0d1527);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:25px;
+  transition:.25s;
+}
+.card:hover{transform:translateY(-4px);border-color:#63f5d055;box-shadow:0 15px 45px #0003}
+.icon{font-size:1.6rem;margin-bottom:14px}
+.card h3{color:var(--mint)}
+.card p{color:var(--muted);font-size:.92rem}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{
+  padding:6px 12px;
+  background:#ffffff08;
+  border:1px solid #ffffff16;
+  border-radius:50px;
+  color:#d7def0;
+  font-size:.82rem;
+  font-family:"JetBrains Mono",monospace;
+}
+
+.badge{
+  display:inline-block;
+  font-family:"JetBrains Mono",monospace;
+  font-size:.72rem;
+  padding:3px 8px;
+  border-radius:6px;
+  background:rgba(99,245,208,0.12);
+  color:var(--mint);
+  border:1px solid rgba(99,245,208,0.25);
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+
+.feature{display:grid;grid-template-columns:1.15fr 0.85fr;gap:22px}
+.feature-main{
+  background:linear-gradient(145deg,#1a3150,#101829);
+  border:1px solid #63f5d033;
+  border-radius:26px;
+  padding:30px;
+  min-height:280px;
+}
+.feature-main .label{color:var(--mint);font-size:.75rem;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.feature-main h3{font-size:1.65rem;color:var(--text);margin-top:14px}
+.feature-main p{color:var(--muted)}
+.mini-list{margin:18px 0 0;padding-left:20px;color:var(--muted);font-size:.9rem}
+.mini-list li{margin-bottom:6px}
+
+.timeline{border-left:2px solid #63f5d055;padding-left:26px;margin-left:8px}
+.event{position:relative;margin-bottom:32px}
+.event:before{
+  content:"";
+  position:absolute;
+  left:-35px;
+  top:6px;
+  width:14px;
+  height:14px;
+  background:var(--mint);
+  border-radius:50%;
+  box-shadow:0 0 0 5px #63f5d018;
+}
+.event h3{color:var(--text);margin-bottom:4px}
+.event .meta{color:var(--mint);font-size:.8rem;font-weight:700;font-family:"JetBrains Mono",monospace;margin-bottom:6px}
+.event p{color:var(--muted);font-size:.92rem;margin:0}
+
+/* Resume Section / Attached Viewer */
+.resume-box{
+  background:linear-gradient(145deg,#121d36,#0a1020);
+  border:1px solid #63f5d033;
+  border-radius:24px;
+  padding:32px;
+}
+.resume-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+  margin-bottom:20px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+.resume-meta strong{display:block;font-size:1.15rem;color:var(--text)}
+.resume-meta span{color:var(--mint);font-size:.84rem;font-family:"JetBrains Mono",monospace}
+.viewer-container{
+  width:100%;
+  height:650px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#090e1a;
+}
+.viewer-container iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.contact a{color:var(--mint);text-decoration:none;word-break:break-word}
+
+footer{
+  text-align:center;
+  padding:40px 7%;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.85rem;
+}
+
+@media(max-width:850px){
+  nav{align-items:flex-start;gap:12px;flex-direction:column}
+  nav a{margin:0 12px 0 0}
+  .hero{grid-template-columns:1fr;padding-top:65px;min-height:auto}
+  h1{letter-spacing:-1.5px}
+  .feature,.contact{grid-template-columns:1fr}
+  .section-top{display:block}
+  .section-top p{margin-top:12px}
+  .avatar{height:220px}
+  .viewer-container{height:450px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Dharshan<b>.</b></div>
+  <div>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#resume">Attached Resume</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="hero">
+  <div>
+    <div class="eyebrow"><span class="dot"></span> 8.5 CGPA • OPEN TO CORE & EMBEDDED ROLES</div>
+    <h1>Engineering ideas.<br><span>Building possibilities.</span></h1>
+    <p class="lead">
+      I'm <strong>Dharshan S</strong>, a third-year Electrical and Electronics Engineering student at K.S.R College of Engineering, Tiruchengode. Dedicated to embedded controllers, 8051/microcontrollers, sensor architectures, and clean electrical engineering solutions.
+    </p>
+    <div class="actions">
+      <a class="btn" href="#resume">View Attached Resume ↓</a>
+      <a class="btn alt" href="#projects">Explore Work ↗</a>
+    </div>
+  </div>
+  <div class="profile-card">
+    <div class="avatar">
+      <img src="sd-logo.png" alt="Dharshan SD logo" onerror="this.style.display='none'; document.getElementById('avatar-fallback').style.display='flex';">
+      <div id="avatar-fallback" class="avatar-fallback" style="display:none;">
+        <span>SD</span>
+        <small>EEE & EMBEDDED</small>
+      </div>
+    </div>
+    <div class="profile-bottom">
+      <div>
+        <strong>Dharshan S</strong>
+        <span class="muted">B.E. EEE (CGPA 8.5)</span>
+      </div>
+      <div style="text-align:right">
+        <strong style="color:var(--mint)">KSRCE</strong>
+        <span class="muted">Tiruchengode, TN</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- About Section -->
+<section id="about">
+  <div class="section-top">
+    <h2>About Me</h2>
+    <p>Engineering scholar with practical focus on microcontroller hardware and smart circuit design.</p>
+  </div>
+  <div class="card">
+    <p style="margin-bottom:14px">
+      <strong>Career Objective:</strong> To become a good engineer where I can build my knowledge and quality. Currently in my third year of Electrical and Electronics Engineering at K.S.R College of Engineering, maintaining an <strong>8.5 CGPA</strong>.
+    </p>
+    <p style="margin-bottom:0">
+      My technical foundation combines academic rigor with active participation in national symposiums, IP lifecycles, and hands-on microcontroller workshops. I am a member of the <strong>IAENG (International Association of Engineers)</strong> and the college <strong>Math Club</strong>, emphasizing analytical rigor, discipline, and practical execution.
+    </p>
+  </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills">
+  <div class="section-top">
+    <h2>Technical & Professional Skills</h2>
+    <p>Validated through coursework, competitions, and laboratory projects.</p>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h3>Embedded & Microcontrollers</h3>
+      <p>Firmware logic, pin assignment, and hardware control.</p>
+      <div class="chips">
+        <span class="chip">8051 Microcontroller</span>
+        <span class="chip">Arduino</span>
+        <span class="chip">ESP8266 / ESP32</span>
+        <span class="chip">Embedded C</span>
+        <span class="chip">IoT Telemetry</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="icon">🧪</div>
+      <h3>Simulation & Software</h3>
+      <p>Scientific computing, model testing, and circuit layout.</p>
+      <div class="chips">
+        <span class="chip">MATLAB</span>
+        <span class="chip">Machine Learning</span>
+        <span class="chip">R-Programming</span>
+        <span class="chip">Proteus VSM</span>
+        <span class="chip">PCB Designing</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="icon">🔌</div>
+      <h3>Core EEE & Strengths</h3>
+      <p>Foundational principles and team execution skills.</p>
+      <div class="chips">
+        <span class="chip">Electric Vehicles</span>
+        <span class="chip">Electrical Machines</span>
+        <span class="chip">Control Systems</span>
+        <span class="chip">Time Management</span>
+        <span class="chip">IAENG Member</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects & Achievements -->
+<section id="projects">
+  <div class="section-top">
+    <h2>Selected Projects & Achievements</h2>
+    <p>Real-world problem solving recognized at national engineering events.</p>
+  </div>
+  <div class="feature">
+    <article class="feature-main">
+      <span class="badge">National Event Prize Winner</span>
+      <div class="label">SRM Institute of Science & Technology</div>
+      <h3>IDEAFORGE - Electronic Echoes: E-Waste Solution</h3>
+      <p>Secured <strong>4th Prize</strong> at SRM IST, Kattankulathur for an engineering proposal addressing sustainable electronic waste recovery and recycling methodologies.</p>
+      <ul class="mini-list">
+        <li>Proposed structured dismantling and circular life cycle management for obsolete electronics</li>
+        <li>Evaluated component reuse in low-cost educational microcontroller prototyping</li>
+        <li>Presented technical impact analysis before university evaluation jury</li>
+      </ul>
+    </article>
+    <div class="card-grid" style="grid-template-columns:1fr">
+      <article class="card">
+        <span class="badge">Hardware Automation</span>
+        <h3>Smart Solar Agarbatti Drying & Packaging</h3>
+        <p>A solar-powered automated prototype incorporating humidity/temperature sensors, regulated DC airflow fans, and moisture-controlled packaging for local manufacturing units.</p>
+      </article>
+      <article class="card">
+        <span class="badge">Technical Paper Presentation</span>
+        <h3>Electric Vehicle Architecture</h3>
+        <p>Presented research on modern Electric Vehicle powertrain configurations, battery telemetry, and charging efficiency at KPR Institute of Engineering and Technology, Coimbatore.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications & Workplaces Section -->
+<section id="certifications">
+  <div class="section-top">
+    <h2>Certifications & Workshops</h2>
+    <p>Continuous learning and verified co-curricular credentials.</p>
+  </div>
+  <div class="card-grid">
+    <div class="card">
+      <span class="badge">MathWorks Self-Paced</span>
+      <h3>MATLAB Onramp</h3>
+      <p>100% completed comprehensive training on MATLAB syntax, matrix mathematics, arrays, plotting, and data visualization pipelines.</p>
+    </div>
+    <div class="card">
+      <span class="badge">MathWorks Self-Paced</span>
+      <h3>Machine Learning Onramp</h3>
+      <p>100% completed foundational training covering classification workflows, supervised learning models, and model evaluation metrics.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Industrial Training</span>
+      <h3>3 Days Embedded System & IoT</h3>
+      <p>Conducted by <strong>Pantech.ai & Warriors Way</strong>. Focused on sensor interfacing, microcontrollers, and IoT protocols.</p>
+    </div>
+    <div class="card">
+      <span class="badge">NIT Rourkela</span>
+      <h3>IP Lifecycle Workshop</h3>
+      <p>Two-day workshop on <em>"From Idea to Asset: Understanding the IP Lifecycle"</em> organized by Intellectual Property Innovation Centre (IPIC), NIT Rourkela.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Hardware Skill</span>
+      <h3>PCB Designing Workshop</h3>
+      <p>Conducted by Indian Info Tech, Research and Training Centre. Focused on schematic design, track routing, and PCB fabrication steps.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Department of Mathematics</span>
+      <h3>R-Programming Workshop</h3>
+      <p>Organized at KSR College of Engineering, Tiruchengode. Practical exposure to statistical programming and analytical scripts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Attached Resume Section -->
+<section id="resume">
+  <div class="section-top">
+    <h2>Curriculum Vitae</h2>
+    <p>Preview the official resume document or download a copy directly.</p>
+  </div>
+  <div class="resume-box">
+    <div class="resume-toolbar">
+      <div class="resume-meta">
+        <strong>Dharshan S — Resume (Official B.E. EEE)</strong>
+        <span>Dharshan resume.pdf • Verified Academic Credential</span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="Dharshan%20resume.pdf" download="Dharshan-Resume.pdf">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download PDF
+        </a>
+        <a class="btn alt" href="Dharshan%20resume.pdf" target="_blank" rel="noopener noreferrer">
+          Open in New Tab ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- Live In-Browser Attached PDF Viewer -->
+    <div class="viewer-container">
+      <iframe src="Dharshan%20resume.pdf#toolbar=1&navpanes=0&scrollbar=1" title="Dharshan S Resume PDF">
+        <div style="padding:40px;text-align:center;color:var(--muted)">
+          <p>Your browser does not support embedded PDF preview.</p>
+          <a class="btn" href="Dharshan%20resume.pdf" target="_blank" rel="noopener noreferrer">Click here to open Dharshan resume.pdf</a>
+        </div>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Education & Academic Track Record -->
+<section id="education">
+  <div class="section-top">
+    <h2>Academic Foundation</h2>
+    <p>Consistent performance through secondary and collegiate studies.</p>
+  </div>
+  <div class="timeline">
+    <div class="event">
+      <div class="meta">ONGOING // 2023 - 2027 • CGPA: 8.5</div>
+      <h3>B.E. in Electrical & Electronics Engineering</h3>
+      <p>K.S.R. College of Engineering, Tiruchengode. Reference: Dr. V. Ravi, Professor, Department of EEE.</p>
+    </div>
+    <div class="event">
+      <div class="meta">COMPLETED // 2024 • 86.3%</div>
+      <h3>Higher Secondary Certificate (Class XII)</h3>
+      <p>Raj Vidya Bhavan Matric Hr. Sec. School, Thuraiyur.</p>
+    </div>
+    <div class="event">
+      <div class="meta">COMPLETED // 2022 • 73.0%</div>
+      <h3>Secondary School Leaving Certificate (Class X)</h3>
+      <p>Raj Vidya Bhavan Matric Hr. Sec. School, Thuraiyur.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+  <div class="section-top">
+    <h2>Get In Touch</h2>
+    <p>Available for internships, technical roles, and engineering collaborations.</p>
+  </div>
+  <div class="contact">
+    <div class="card">
+      <h3>Contact Information</h3>
+      <p style="margin-bottom:8px">
+        <strong>Email:</strong> <a href="mailto:dharshansenthil2007@gmail.com">dharshansenthil2007@gmail.com</a>
+      </p>
+      <p style="margin-bottom:8px">
+        <strong>Phone:</strong> <a href="tel:+916369749531">+91 63697 49531</a>
+      </p>
+      <p style="margin-bottom:0">
+        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/dharshan-s-0160a033" target="_blank" rel="noopener noreferrer">linkedin.com/in/dharshan-s-0160a033 ↗</a>
+      </p>
+    </div>
+    <div class="card">
+      <h3>Location & Address</h3>
+      <p style="margin-bottom:8px">
+        1/123, North Street, Keelakunnupatti (PO),<br>
+        Thuraiyur (TK), Trichy (DT) - 621 004,<br>
+        Tamil Nadu, India.
+      </p>
+      <p style="margin-bottom:0;color:var(--mint);font-size:.84rem;font-family:'JetBrains Mono',monospace">
+        College: K.S.R. College of Engineering, Tiruchengode
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Dharshan S • Electrical & Electronics Engineer<br>
+  Built with clean semantics, responsive CSS, and integrated resume documentation.
+</footer>
+
+</body>
+</html>
